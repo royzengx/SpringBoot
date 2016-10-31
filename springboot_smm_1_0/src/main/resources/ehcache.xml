@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+    updateCheck="false">
+   
+    <!--
+    diskStore：cache path. memory or disk type.
+    Parameters:
+    user.home – user home path.
+    user.dir  – user working path
+    java.io.tmpdir – default temporary path.
+	-->
+    <diskStore path="d:\temp" />
+   
+    <!--
+       defaultCache：default cache strategy.
+    -->
+    <defaultCache
+       eternal="false"
+       maxElementsInMemory="1000"
+       overflowToDisk="false"
+       diskPersistent="false"
+       timeToIdleSeconds="0"
+       timeToLiveSeconds="6000"
+       memoryStoreEvictionPolicy="LRU" />
+     
+    <cache
+       name="demo"  
+       eternal="false"
+       maxElementsInMemory="100"
+       overflowToDisk="false"
+       diskPersistent="false"
+       timeToIdleSeconds="0"
+       timeToLiveSeconds="10000"
+       memoryStoreEvictionPolicy="LRU" />
+</ehcache>
