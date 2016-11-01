@@ -1,0 +1,16 @@
+server:
+    port: 8080
+    address: localhost
+
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/account
+        username: root
+        password: 123456
+    jpa:
+        properties:
+             hibernate: 
+                 show_sql: true
+logging:
+    level:
+        com.roy: DEBUG
