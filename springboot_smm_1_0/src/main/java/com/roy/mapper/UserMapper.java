@@ -1,30 +1,26 @@
-/**
- * 
- */
 package com.roy.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
 import com.roy.domain.User;
 
-/**
- * @author Roy
- *
- */
 @Mapper
 public interface UserMapper {
+    int deleteByPrimaryKey(String email);
 
-    @Select("SELECT * FROM USER WHERE NAME = #{name}")
-    User findUserByName(@Param("name") String name);
+    int insert(User record);
+
+    int insertSelective(User record);
+
+    User selectByPrimaryKey(String email);
+
+    int updateByPrimaryKeySelective(User record);
+
+    int updateByPrimaryKey(User record);
     
-    @Select("SELECT * FROM USER")
-    List<User> findAll();
+    List<User> find(User user);
     
-    @Update("update user set name = #{name} where name = #{name}")
-    void updateUser(User user);
+    int findCount(User user);
 }

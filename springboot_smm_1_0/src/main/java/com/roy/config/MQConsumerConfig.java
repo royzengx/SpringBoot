@@ -15,8 +15,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.handler.annotation.support.DefaultMessageHandlerMethodFactory;
 
-import com.roy.service.UserMQReceiverService;
-
 /**
  * @author Roy
  *
@@ -26,7 +24,7 @@ import com.roy.service.UserMQReceiverService;
 public class MQConsumerConfig implements RabbitListenerConfigurer {
 
 	@Autowired
-    UserMQReceiverService userMQReceiverService;
+    //UserMQReceiverService userMQReceiverService;
 	
 	@Bean
 	public DefaultMessageHandlerMethodFactory myHandlerMethodFactory() {

@@ -25,5 +25,6 @@ public class UserMQReceiverService {
 	@RabbitListener(queues = RabbitmqQueue.CONTRACE_SELF)
 	public void receiveUserQueue(User user) {
 		log.info(new Date() + " Received User<" + new Gson().toJson(user) + ">");
+		// do more logic here.
 	}
 }

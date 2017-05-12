@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.roy.controller;
+package com.roy.api;
 
 import java.util.Date;
 import java.util.List;
@@ -26,9 +26,9 @@ import com.roy.service.UserService;
  */
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserApi {
 	
-	private Logger log = LoggerFactory.getLogger(UserController.class);
+	private Logger log = LoggerFactory.getLogger(UserApi.class);
 	
 	@Resource
     private UserService userServices;
@@ -59,8 +59,8 @@ public class UserController {
 		try {
 			String name = "zxy2013";
 			user.setName(name);
-			user.setId(47);
-			user.setIp("221.217.37.208");
+			user.setId(1);
+			user.setEmail("testidi");
 			user.setPassword("0b5897c445554f654488c4511ef9d084");
 			this.userServices.updateUser(user);
 		} catch (Exception e) {
@@ -87,7 +87,7 @@ public class UserController {
 		User user = new User();
 		user.setName("Roy");
 		user.setId(47);
-		user.setIp("221.217.37.208");
+		user.setEmail("testidi");
 		user.setPassword("0b5897c445554f654488c4511ef9d084");
 		userMQSendService.sendUserRabbitmqDirect(user);  
 		log.info(new Date() + " userDirect Send Message" + new Gson().toJson(user));

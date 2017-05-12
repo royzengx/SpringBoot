@@ -11,7 +11,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.pagehelper.PageHelper;
 import com.roy.domain.User;
 import com.roy.mapper.UserMapper;
 
@@ -20,7 +19,6 @@ import com.roy.mapper.UserMapper;
  *
  */
 @Service
-@Transactional
 public class UserServiceImpl implements UserService {
 	
 	// define a cache key.
@@ -38,21 +36,33 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findUserByName(String name) {
 		System.out.print("Missed. By database!");
-		User user = userMapper.findUserByName(name);
-		return user;
+		//User user = userMapper.find(user)(name);
+		return null;
 	}
 	
 	@CacheEvict(value = DEMO_CACHE_NAME,key = "'userInfo_'+#user.getName()")
 	@Override
+	@Transactional
 	public void updateUser(User user) {
-		userMapper.updateUser(user);
+		User user1 = new User();
+		user1.setName("bar");
+		user1.setId(1);
+		user1.setEmail("bar1@gmail.com");
+		user1.setPassword("0b5897c445554f654488c4511ef9d084");
+		this.userMapper.updateByPrimaryKeySelective(user1);
+		user1.setId(1);
+		user1.setEmail("bar2@gmail.com");
+		userMapper.updateByPrimaryKeySelective(user1);
+		//throw new RuntimeException("We create an exception. ");
+		
 	}
-
+	
+	@Cacheable(value=DEMO_CACHE_NAME,key="AllUser")
 	@Override
 	public List<User> findAll() {
 		// Fetch page 2.
-		PageHelper.startPage(2, 20); 
-		return userMapper.findAll();
+		// PageHelper.startPage(2, 20); 
+		return userMapper.find(new User());
 	}
 
 }

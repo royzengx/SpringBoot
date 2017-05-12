@@ -11,8 +11,11 @@ import javax.sql.DataSource;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -51,10 +54,10 @@ public class MybatisConfig implements TransactionManagementConfigurer {
 		bean.setPlugins(new Interceptor[] { pageHelper });
 
 		// Add XML path if need.
-		//ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+		ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 		try {
 			// set xml path.
-			// bean.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));
+			bean.setMapperLocations(resolver.getResources("classpath:/com/roy/mapper/*.xml"));
 			return bean.getObject();
 		} catch (Exception e) {
 			throw new RuntimeException("Error : sqlSessionFactory initialize failed :", e);
@@ -68,10 +71,10 @@ public class MybatisConfig implements TransactionManagementConfigurer {
 	 * @param sqlSessionFactory
 	 * @return
 	 */
-//	@Bean(name = "sqlSessionTemplate")
-//	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
-//		return new SqlSessionTemplate(sqlSessionFactory);
-//	}
+	@Bean(name = "sqlSessionTemplate")
+	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+		return new SqlSessionTemplate(sqlSessionFactory);
+	}
 
 	/**
 	 * Transaction Manager
